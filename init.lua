@@ -4,8 +4,6 @@ minetest.register_craftitem("rocket_launcher:launcher", {
 	description = "Rocket Launcher",
 	inventory_image = "rocket_launcher.png",
 	on_use = function(itemstack, user, pointed_thing)
-			if not minetest.check_player_privs(user:get_player_name(), {creative = true}) then itemstack:take_item()
-		end
 		local pos = user:getpos()
 		local dir = user:get_look_dir()
 		local yaw = user:get_look_horizontal()
