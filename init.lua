@@ -54,6 +54,7 @@ local rocket = {
 	collisionbox = {-0.25,-0.25,-0.25,0.25,0.25,0.25},
 	--selectionbox = {-0.25,-0.25,-0.25,0.25,0.25,0.25},
 	collide_with_objects = false,
+	automatic_face_movement_dir = 270
 }
 rocket.on_step = function(self, dtime)
 	self.timer = self.timer + dtime
@@ -79,7 +80,7 @@ rocket.on_step = function(self, dtime)
 		local prop = obj:get_properties()
 		if not prop then goto nodes end
 			if obj:is_player() or prop.collide_with_objects then
-				tnt.boom(pos,{radius=rocket_raduis})
+				tnt.boom(pos,{radius=rocket_radius})
 				self.object:remove()
 			end
 		end
