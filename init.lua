@@ -36,7 +36,7 @@ if not creative then inv:remove_item("main", "rocket_launcher:rocket 1") end
 				obj:set_yaw(yaw)
 			end
 		end
-		minetest.sound_play('rocket_launch',{gain=0.5})
+		minetest.sound_play('rocket_launch',{to_player = name, gain=0.5})
 		return itemstack
 	end
 end})
