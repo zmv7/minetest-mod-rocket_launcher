@@ -1,9 +1,10 @@
-local rocket_radius = tonumber(minetest.settings:get("rocket_launcher_radius")) or 3
+local rocket_radius = tonumber(core.settings:get("rocket_launcher_radius")) or 3
+local ballistic = core.settings:get("rocket_launcher_ballistic") or true
 local reloading = {}
 local function reload(name)
 	if not reloading[name] then
 		reloading[name] = true
-		minetest.after(4,function()
+		core.after(4,function()
 			reloading[name] = false
 		end)
 	end
@@ -51,12 +52,15 @@ core.register_tool("rocket_launcher:launcher", {
 			pos.y = pos.y + 1.5
 			local obj = core.add_entity(pos, "rocket_launcher:rocket")
 			if obj then
-				obj:setvelocity({x=dir.x * 30, y=dir.y * 30, z=dir.z * 30})
+				obj:set_velocity({x=dir.x * 30, y=dir.y * 30, z=dir.z * 30})
+				if ballistic == true then
+					obj:set_acceleration({x=0,z=0,y=-1})
+				end
 				obj:set_yaw(yaw)
 				owner = user
 			end
 		end
-		core.sound_play('fire_extinguish_flame.2',{to_player = name, gain=0.5})
+		core.sound_play('rocket_launch',{to_player = name, gain=0.5})
 		return itemstack
 	end
 end})
