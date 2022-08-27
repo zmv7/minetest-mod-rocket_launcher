@@ -94,7 +94,7 @@ local rocket = {
 }
 
 rocket.on_activate = function(self, staticdata)
-	self["radius"] = staticdata or 3
+	self["radius"] = tonumber(staticdata) or 3
 end
 
 rocket.on_step = function(self, dtime, moveresult)
@@ -106,7 +106,15 @@ rocket.on_step = function(self, dtime, moveresult)
 		core.add_particle({
 			pos = pos,
 			velocity = {x=rnd,y=rnd,z=rnd},
-			--acceleration = {x=rnd,y=rnd,z=rnd},
+			expirationtime = 0.1,
+			size = 6,
+			collisiondetection = false,
+			vertical = false,
+			texture = "tnt_boom.png",
+			glow = 15})
+		core.add_particle({
+			pos = pos,
+			velocity = {x=rnd,y=rnd,z=rnd},
 			expirationtime = 0.7,
 			size = 6,
 			collisiondetection = false,
@@ -124,7 +132,9 @@ rocket.on_step = function(self, dtime, moveresult)
 			local prop = obj:get_properties()
 			if not prop then goto nodes end
 			if obj:is_player() or prop.collide_with_objects == true then
-				tnt.boom(pos,{radius=self["radius"]})
+				if not core.is_protected(pos,"") then
+					tnt.boom(pos,{radius=self["radius"]})
+				end
 				self.object:remove()
 			end
 		end
