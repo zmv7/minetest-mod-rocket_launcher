@@ -71,7 +71,7 @@ core.register_tool("rocket_launcher:launcher", {
 				obj:set_yaw(yaw)
 			end
 		end
-		core.sound_play('fire_extinguish_flame.2',{to_player = name, gain=0.5})
+		core.sound_play('fire_extinguish_flame',{to_player = name, gain=0.5})
 		return itemstack
 	end
 end})
