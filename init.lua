@@ -69,7 +69,6 @@ core.register_tool("rocket_launcher:launcher", {
 					obj:set_acceleration({x=0,z=0,y=-1})
 				end
 				obj:set_yaw(yaw)
-				obj:set_attribute("owner",name)
 			end
 		end
 		core.sound_play('rocket_launch',{to_player = name, gain=0.5})
@@ -85,10 +84,8 @@ local rocket = {
 	mesh = 'rocket.obj',
 	visual_size = {x=0.7, y=0.7,},
 	textures = {'rocket_mesh.png'},
-	lastpos = {},
 	pointable = false,
 	collisionbox = {-0.25,-0.25,-0.25,0.25,0.25,0.25},
-	--selectionbox = {-0.25,-0.25,-0.25,0.25,0.25,0.25},
 	collide_with_objects = false,
 	automatic_face_movement_dir = 270
 }
@@ -100,7 +97,6 @@ end
 rocket.on_step = function(self, dtime, moveresult)
 	self.timer = self.timer + dtime
 	local pos = self.object:get_pos()
-	local node = core.get_node(pos)
 	local rnd = math.random()
 	core.after(0.1,function()
 		core.add_particle({
