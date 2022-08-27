@@ -53,6 +53,7 @@ core.register_tool("rocket_launcher:launcher", {
 			local obj = core.add_entity(pos, "rocket_launcher:rocket")
 			if obj then
 				obj:set_velocity({x=dir.x * 30, y=dir.y * 30, z=dir.z * 30})
+				user:add_velocity({x=dir.x * -4, y=dir.y * -4, z=dir.z * -4})
 				if ballistic == true then
 					obj:set_acceleration({x=0,z=0,y=-1})
 				end
