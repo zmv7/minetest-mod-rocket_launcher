@@ -1,5 +1,7 @@
 local default_radius = tonumber(core.settings:get("rocket_launcher_radius")) or 3
-local ballistic = core.settings:get("rocket_launcher_ballistic") or true
+local ballistic = core.settings:get_bool("rocket_launcher_ballistic", true)
+local safe_areas = core.settings:get_bool("rocket_launcher_safe_areas", true)
+
 local reloading = {}
 local function reload(name)
 	if not reloading[name] then
@@ -7,6 +9,14 @@ local function reload(name)
 		core.after(4,function()
 			reloading[name] = false
 		end)
+	end
+end
+
+local function can_boom(pos)
+	if safe_areas == false then
+		return true
+	else
+		return not core.is_protected(pos,"")
 	end
 end
 
@@ -71,7 +81,7 @@ core.register_tool("rocket_launcher:launcher", {
 				obj:set_yaw(yaw)
 			end
 		end
-		core.sound_play('fire_extinguish_flame',{to_player = name, gain=0.5})
+		core.sound_play('fire_extinguish_flame',{to_player = name, gain = 0.5})
 		return itemstack
 	end
 end})
@@ -128,7 +138,7 @@ rocket.on_step = function(self, dtime, moveresult)
 			local prop = obj:get_properties()
 			if not prop then goto nodes end
 			if obj:is_player() or prop.collide_with_objects == true then
-				if not core.is_protected(pos,"") then
+				if can_boom(pos) then
 					tnt.boom(pos,{radius=self["radius"]})
 				end
 				self.object:remove()
@@ -137,7 +147,9 @@ rocket.on_step = function(self, dtime, moveresult)
 	end
 ::nodes::
 	if moveresult.collides then
-		tnt.boom(pos,{radius=self["radius"]})
+		if can_boom(pos) then
+			tnt.boom(pos,{radius=self["radius"]})
+		end
 		self.object:remove()
 	end
 end
