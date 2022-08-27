@@ -1,2 +1,3 @@
 rocket_launcher_radius (Rocket explosion radius) int 3
 rocket_launcher_ballistic (Rocket ballistic) bool true
+rocket_launcher_safe_areas (Dont boom in protected areas) bool true
