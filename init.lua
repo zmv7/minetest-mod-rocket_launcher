@@ -107,11 +107,10 @@ end
 rocket.on_step = function(self, dtime, moveresult)
 	self.timer = self.timer + dtime
 	local pos = self.object:get_pos()
-	local rnd = math.random()
 	core.after(0.1,function()
 		core.add_particle({
 			pos = pos,
-			velocity = {x=rnd,y=rnd,z=rnd},
+			velocity = {x=math.random(-0.5,0.5),y=math.random(-0.5,0.5),z=math.random(-0.5,0.5)},
 			expirationtime = 0.1,
 			size = 6,
 			collisiondetection = false,
@@ -120,7 +119,7 @@ rocket.on_step = function(self, dtime, moveresult)
 			glow = 15})
 		core.add_particle({
 			pos = pos,
-			velocity = {x=rnd,y=rnd,z=rnd},
+			velocity = {x=math.random(-1,1),y=math.random(-1,1),z=math.random(-1,1)},
 			expirationtime = 0.7,
 			size = 6,
 			collisiondetection = false,
