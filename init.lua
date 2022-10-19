@@ -68,7 +68,7 @@ core.register_tool("rocket_launcher:launcher", {
 		local radius = meta:get("radius") or default_radius
 		local pos = user:get_pos()
 		local dir = user:get_look_dir()
-		local yaw = user:get_look_horizontal()
+		local pitch = user:get_look_vertical()
 		if pos and dir then
 			pos.y = pos.y + 1.5
 			local obj = core.add_entity(pos, "rocket_launcher:rocket",radius)
@@ -78,7 +78,7 @@ core.register_tool("rocket_launcher:launcher", {
 				if ballistic == true then
 					obj:set_acceleration({x=0,z=0,y=-1})
 				end
-				obj:set_yaw(yaw)
+				obj:set_rotation({x=-pitch, y=0, z=0})
 			end
 		end
 		core.sound_play('fire_extinguish_flame',{to_player = name, gain = 0.5})
