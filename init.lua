@@ -36,6 +36,7 @@ core.register_chatcommand("rocket-radius", {
     if meta then
 		meta:set_int("radius",radius)
 		meta:set_string("count_meta","R"..param)
+		meta:set_string("description","Rocket Launcher\nExplosion radius: "..param)
 		player:set_wielded_item(witem)
 		return true, "Radius set to "..param
 	end
