@@ -134,18 +134,17 @@ rocket.on_step = function(self, dtime, moveresult)
 	if self.timer > 0.2 then
 		local objs = core.get_objects_inside_radius({x = pos.x, y = pos.y-1, z = pos.z}, 1)
 		for k, obj in pairs(objs) do
-			if not obj then goto nodes end
-			local prop = obj:get_properties()
-			if not prop then goto nodes end
-			if obj:is_player() or prop.collide_with_objects == true then
-				if can_boom(pos) then
-					tnt.boom(pos,{radius=self["radius"]})
+			local prop = obj and obj:get_properties()
+			if prop then
+				if obj:is_player() or prop.collide_with_objects == true then
+					if can_boom(pos) then
+						tnt.boom(pos,{radius=self["radius"]})
+					end
+					self.object:remove()
 				end
-				self.object:remove()
 			end
 		end
 	end
-::nodes::
 	if moveresult.collides then
 		if can_boom(pos) then
 			tnt.boom(pos,{radius=self["radius"]})
