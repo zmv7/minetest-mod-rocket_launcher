@@ -1,6 +1,6 @@
 # minetest-mod-rocket_launcher
 Simple rocket launcher that uses tnt.explode() function  
-![ContentDB](https://content.minetest.net/packages/Zemtzov7/rocket_launcher/shields/downloads/)
+[![ContentDB](https://content.minetest.net/packages/Zemtzov7/rocket_launcher/shields/downloads/)](https://content.minetest.net/packages/Zemtzov7/rocket_launcher/)
 ### Features
 * Rockets are 3d meshes
 * Default radius can be set in settings - `rocket_launcher_radius`, default is `3`,
